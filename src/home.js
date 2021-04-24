@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import QRCode from "react-qr-code";
 import logo from "./monero.png"
-
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 export class Home extends Component {
     constructor(props) {
@@ -64,6 +65,14 @@ export class Home extends Component {
                     <div align="center">
                         <h2>Tips Appreciated :)</h2>
                         <QRCode value="42wM142JiX12Bbn4QGLLFyGAYNJoMJxwALG3NvPzpzwG8tvE22uiCQqHf58EfmT6VoA6kwQoCPkXj63oC9CrD1bBFCy99Qu" size="128" />
+                        <br></br>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={() => navigator.clipboard.writeText('42wM142JiX12Bbn4QGLLFyGAYNJoMJxwALG3NvPzpzwG8tvE22uiCQqHf58EfmT6VoA6kwQoCPkXj63oC9CrD1bBFCy99Qu')}
+                        >
+                            Copy
+                        </Button>
                     </div>
                 </div>
             </div>
