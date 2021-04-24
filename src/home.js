@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import QRCode from "react-qr-code";
 import logo from "./monero.png"
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 export class Home extends Component {
