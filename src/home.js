@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import QRCode from "react-qr-code";
 import logo from "./monero.png"
-import Button from '@material-ui/core/Button';
+import bitcoinLogo from "./bitcoinLogo.png"
+import dogeLogo from "./Dogecoin_logo.png"
+import Button from '@material-ui/core/Button'
 
 export class Home extends Component {
     constructor(props) {
@@ -13,12 +15,15 @@ export class Home extends Component {
             price: 0,
             marketCap: 0,
             rank: 1,
-            reward: 3
+            reward: 3,
+            bitcoinInflation: 1,
+            dogeInflation: 1
         }
     }
 
     async componentDidMount() {
 
+        //monero info
         let result = await axios.get("https://api.coingecko.com/api/v3/coins/monero?tickers=true&market_data=true&community_data=true&developer_data=true&sparkline=true")
         let blockInfo = await axios.get("https://localmonero.co/blocks/api/get_stats")
 
@@ -31,12 +36,35 @@ export class Home extends Component {
 
         let data = result.data.market_data
 
+        //bitcoin info
+        let bitcoinResult = await axios.get("https://api.coingecko.com/api/v3/coins/bitcoin?tickers=true&market_data=true&community_data=true&developer_data=true&sparkline=true")
+        let bitcoinBlockInfo = await axios.get("https://blockchain.info/q/bcperblock")
+
+        let bitcoinLastReward = bitcoinBlockInfo.data
+        bitcoinLastReward *= 52560
+        bitcoinLastReward = bitcoinLastReward.toFixed(2)
+
+        let bitcoinData = bitcoinResult.data.market_data
+
+        let bitcoinInflation = bitcoinLastReward / bitcoinData.circulating_supply
+        bitcoinInflation = 100 * bitcoinInflation
+
+        //doge info
+        let dogeResult = await axios.get("https://api.coingecko.com/api/v3/coins/dogecoin?tickers=true&market_data=true&community_data=true&developer_data=true&sparkline=true")
+        let dogeData = dogeResult.data.market_data
+
+        let dogeInflation = dogeData.circulating_supply / 5000000000
+        dogeInflation = 100 / dogeInflation
+
+
         this.setState({
             circulation: data.circulating_supply,
             price: data.current_price.usd,
             marketCap: data.market_cap.usd,
             rank: data.market_cap_rank,
-            reward: lastReward
+            reward: lastReward,
+            bitcoinInflation: bitcoinInflation,
+            dogeInflation: dogeInflation
         })
 
     }
@@ -73,6 +101,26 @@ export class Home extends Component {
                             Copy
                         </Button>
                     </div>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <h3>Other Coins</h3>
+                <div id="bitcoin">
+                    <a href="https://veryscience.github.io/bitcoininflation/" >
+                        <img src={bitcoinLogo} height="14%" width="14%" />
+                        <br />
+                        <p>Inflation: {this.state.bitcoinInflation.toFixed(2)}%</p>
+                    </a>
+                </div>
+                <br />
+                <div id="doge">
+                    <a href="https://veryscience.github.io/dogeinflation/" >
+                        <img src={dogeLogo} height="14%" width="14%" />
+                        <br />
+                        <p>Inflation: {this.state.dogeInflation.toFixed(2)}%</p>
+                    </a>
                 </div>
             </div>
         )

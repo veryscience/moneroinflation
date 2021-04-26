@@ -4,25 +4,35 @@ body {
   color: white;
 }
 
-a {
-  text-decoration: none;
+p{
+  display: inline-block;
+}
+
+a{
+  display: inline-block;
+  color: inherit; 
+}
+
+#bitcoin:hover {
+  background-color: orange;
+  color: inherit; 
+}
+
+#doge:hover {
+  background-color: #d9bd62;
+  color: inherit; 
+}
+
+a:visited{
+  color: inherit;
 }
 
 label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
-}
-
 #textInfo {
   display: inline-block;
   text-align: left;
 }
+
