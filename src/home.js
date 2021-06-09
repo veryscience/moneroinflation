@@ -29,7 +29,8 @@ export class Home extends Component {
 
         let lastReward = blockInfo.data.last_reward
         lastReward = lastReward.toString()
-        lastReward = lastReward[0] + '.' + lastReward.slice(1)
+        //lastReward = lastReward[0] + '.' + lastReward.slice(1)
+        lastReward = '0.' + lastReward
         lastReward = Number(lastReward)
         lastReward *= 262800
         lastReward = lastReward.toFixed(3)
